@@ -37,7 +37,6 @@ public class Main {
 
     static ArrayList<Buku> daftarBuku = new ArrayList<>();
 
-    // ANGGOTA 3: Riwayat Transaksi dan Antrean Mahasiswa
     static Stack<String> riwayatTransaksi = new Stack<>();
     static Queue<String> antreanMahasiswa = new LinkedList<>();
 
