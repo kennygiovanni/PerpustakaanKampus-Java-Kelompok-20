@@ -1,7 +1,5 @@
 # Sistem Manajemen Perpustakaan Kampus
 
-## Deskripsi Program
-
 Program ini adalah sistem manajemen perpustakaan kampus berbasis Java (console) yang menggabungkan *enam struktur data* dalam satu alur kerja dengan menu utama interaktif berbasis Scanner.
 
 | No | Struktur Data | Variabel | Fungsi dalam Sistem |
