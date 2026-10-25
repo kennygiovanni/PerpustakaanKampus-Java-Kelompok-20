@@ -24,6 +24,21 @@ Program ini adalah sistem manajemen perpustakaan kampus berbasis Java (console) 
 3. *Mikhel Febian* - 2509116056 - Kelas A
 4. *Muhammad Nadhir Sultan Azzaky* - 2509116080 - Kelas A
 
+## Struktur File Proyek
+ 
+```
+SistemManajemenPerpustakaan
+├── Source Packages
+│   └── main
+│       ├── Buku.java
+│       └── Main.java
+```
+ 
+| File | Isi |
+|------|-----|
+| Buku.java | Class Buku: atribut judul, kategori, lantai, rak, posisi, dan status dipinjam |
+| Main.java | Class Main: seluruh struktur data, menu utama, dan method pendukung |
+
 ### Alur
 
 Keenam struktur data tidak berjalan sendiri-sendiri, tetapi saling terhubung:
