@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
 
-/**
- *
- * @author Adbang 18
- */
 public class Buku {
 
     private String judul;
@@ -15,6 +7,7 @@ public class Buku {
     private int lantai;
     private int rak;
     private int posisi;
+    private boolean dipinjam;
 
     public Buku(String judul, String kategori, int lantai, int rak, int posisi) {
         this.judul = judul;
@@ -22,25 +15,14 @@ public class Buku {
         this.lantai = lantai;
         this.rak = rak;
         this.posisi = posisi;
+        this.dipinjam = false;
     }
 
-    public String getJudul() {
-        return judul;
-    }
-
-    public String getKategori() {
-        return kategori;
-    }
-
-    public int getLantai() {
-        return lantai;
-    }
-
-    public int getRak() {
-        return rak;
-    }
-
-    public int getPosisi() {
-        return posisi;
-    }
+    public String getJudul() { return judul; }
+    public String getKategori() { return kategori; }
+    public int getLantai() { return lantai; }
+    public int getRak() { return rak; }
+    public int getPosisi() { return posisi; }
+    public boolean isDipinjam() { return dipinjam; }
+    public void setDipinjam(boolean dipinjam) { this.dipinjam = dipinjam; }
 }

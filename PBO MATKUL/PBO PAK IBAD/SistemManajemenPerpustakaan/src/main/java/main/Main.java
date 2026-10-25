@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package main;
 
 import java.util.ArrayList;
@@ -10,10 +6,6 @@ import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 
-/**
- *
- * @author Adbang 18
- */
 public class Main {
 
     static Scanner scanner = new Scanner(System.in);
@@ -38,6 +30,7 @@ public class Main {
     static final int JUMLAH_LANTAI = 2;
     static final int JUMLAH_RAK = 3;
     static final int JUMLAH_POSISI = 4;
+    static final String KOSONG = "Kosong";
 
     static String[][][] lokasiBuku =
             new String[JUMLAH_LANTAI][JUMLAH_RAK][JUMLAH_POSISI];
@@ -48,96 +41,100 @@ public class Main {
     static Stack<String> riwayatTransaksi = new Stack<>();
     static Queue<String> antreanMahasiswa = new LinkedList<>();
 
+    static int nomorTransaksi = 0;
+    
     public static void main(String[] args) {
-
-        for (int l = 0; l < JUMLAH_LANTAI; l++) {
-            for (int r = 0; r < JUMLAH_RAK; r++) {
-                for (int p = 0; p < JUMLAH_POSISI; p++) {
-                    lokasiBuku[l][r][p] = "Kosong";
-                }
-            }
-        }
-
+        inisialisasiLokasi();
+        
         boolean jalan = true;
-
         while (jalan) {
-            System.out.println("\n=== SISTEM MANAJEMEN PERPUSTAKAAN KAMPUS ===");
-
-            System.out.println("\n--- Anggota 1: Kategori & Peminjaman ---");
-            System.out.println("1. Tampilkan Kategori Buku (Array 1D)");
-            System.out.println("2. Tampilkan Data Peminjaman (Array 2D)");
-
-            System.out.println("\n--- Anggota 2: Lokasi & Daftar Buku ---");
-            System.out.println("3. Tambah Buku (ArrayList + Array 3D)");
-            System.out.println("4. Tampilkan Daftar Buku (ArrayList)");
-            System.out.println("5. Hapus Buku (ArrayList + Array 3D)");
-            System.out.println("6. Tampilkan Denah Lokasi Penyimpanan (Array 3D)");
-
-            System.out.println("\n--- Anggota 3: Riwayat Transaksi & Antrean Mahasiswa ---");
-            System.out.println("7. Kelola Riwayat Transaksi (Stack)");
-            System.out.println("8. Kelola Antrean Mahasiswa (Queue)");
-
-            System.out.println("\n9. Keluar");
-
-            int pilihan = bacaAngka("Pilih menu (1-9): ");
-
+            tampilkanMenuUtama();
+            int pilihan = bacaAngka("Pilih Menu 0-11: ");
+            
             switch (pilihan) {
-                case 1:
-                    tampilkanKategori();
-                    break;
-
-                case 2:
-                    tampilkanPeminjaman();
-                    break;
-
-                case 3:
-                    tambahBuku();
-                    break;
-
-                case 4:
-                    tampilkanDaftarBuku();
-                    break;
-
-                case 5:
-                    hapusBuku();
-                    break;
-
-                case 6:
-                    tampilkanLokasi();
-                    break;
-
-                case 7:
-                    menuStack();
-                    break;
-
-                case 8:
-                    menuQueue();
-                    break;
-
-                case 9:
+                case 1:  tampilkanKategori(); break;
+                case 2:  tampilkanPeminjaman(); break;
+                case 3:  tambahBuku(); break;
+                case 4:  tampilkanDaftarBuku(); break;
+                case 5:  hapusBuku(); break;
+                case 6:  tampilkanLokasi(); break;
+                case 7:  menuQueue(); break;
+                case 8:  kembalikanBuku(); break;
+                case 9:  menuStack(); break;
+                case 10: tampilkanRingkasan(); break;
+                case 11: contohData(); break;
+                case 0:
                     jalan = false;
                     System.out.println("Terima kasih. Program selesai.");
                     break;
-
                 default:
                     System.out.println("Pilihan tidak valid!");
             }
         }
-
         scanner.close();
+    }
+    
+    static void tampilkanMenuUtama() {
+        System.out.println("\n=== SISTEM MANAJEMEN PERPUSTAKAAN KAMPUS ===");
+        System.out.println("\n--- Data Kategori & Statistik ---");
+        System.out.println("1.  Tampilkan Kategori Buku (Array 1D)");
+        System.out.println("2.  Tampilkan Data Peminjaman (Array 2D)");
+        System.out.println("\n--- Koleksi & Lokasi Buku ---");
+        System.out.println("3.  Tambah Buku (ArrayList + Array 3D)");
+        System.out.println("4.  Tampilkan Daftar Buku (ArrayList)");
+        System.out.println("5.  Hapus Buku (ArrayList + Array 3D)");
+        System.out.println("6.  Tampilkan Denah Lokasi (Array 3D)");
+        System.out.println("\n--- Layanan Peminjaman ---");
+        System.out.println("7.  Antrean Mahasiswa & Proses Peminjaman (Queue)");
+        System.out.println("8.  Pengembalian Buku");
+        System.out.println("9.  Riwayat Transaksi (Stack)");
+        System.out.println("\n--- Lainnya ---");
+        System.out.println("10. Ringkasan Seluruh Sistem");
+        System.out.println("11. Isi Data Contoh (untuk pengujian)");
+        System.out.println("0.  Keluar");
+    }
+    
+    static void inisialisasiLokasi(){
+        for (int l = 0; l < JUMLAH_LANTAI; l++) 
+            for (int r = 0; r < JUMLAH_RAK; r++) 
+                for (int p = 0; p < JUMLAH_POSISI; p++) 
+                    lokasiBuku[l][r][p] = "Kosong";
     }
 
     static int bacaAngka(String pesan) {
         while (true) {
-            System.out.print(pesan);
+            System.out.println(pesan);
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nInput berakhir. Program Selesai.");
+                System.exit(0);
+            }
             String input = scanner.nextLine().trim();
-
             try {
                 return Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 System.out.println("Input harus berupa angka!");
             }
         }
+    }
+    
+    static String bacaTeks(String pesan) {
+        System.out.print(pesan);
+        if (!scanner.hasNextLine()) {
+            System.out.println("\nInput berakhir. Program selesai.");
+            System.exit(0);
+        }
+        return scanner.nextLine().trim();
+    }
+    
+    static void catat(String keterangan) {
+        nomorTransaksi++;
+        riwayatTransaksi.push("#" + nomorTransaksi + " " + keterangan);
+    }
+ 
+    static int indeksKategori(String nama) {
+        for (int i = 0; i < kategoriBuku.length; i++)
+            if (kategoriBuku[i].equals(nama)) return i;
+        return -1;
     }
 
     static void tampilkanKategori() {
@@ -149,33 +146,46 @@ public class Main {
     }
 
     static void tampilkanPeminjaman() {
-        System.out.println("\n[ Data Jumlah Peminjaman Buku per Kategori & Hari ]");
+    System.out.println("\n[ Data Jumlah Peminjaman Buku per Kategori & Hari ]");
 
-        System.out.print(String.format("%-20s", "Kategori"));
+    final int LEBAR = 8; 
 
-        for (String h : hari) {
-            System.out.print(String.format("%-10s", h));
-        }
-
-        System.out.println();
-
-        for (int i = 0; i < kategoriBuku.length; i++) {
-            System.out.print(String.format("%-20s", kategoriBuku[i]));
-
-            for (int j = 0; j < hari.length; j++) {
-                System.out.print(String.format("%-10d", dataPeminjaman[i][j]));
-            }
-
-            System.out.println();
-        }
+    System.out.printf("%-20s", "Kategori");
+    for (String h : hari) {
+        System.out.printf("%" + LEBAR + "s", h);
     }
+    System.out.printf("%" + LEBAR + "s%n", "Total");
+
+    System.out.println("-".repeat(20 + LEBAR * (hari.length + 1)));
+
+    int[] totalHari = new int[hari.length];
+    int totalSemua = 0;
+
+    for (int i = 0; i < kategoriBuku.length; i++) {
+        System.out.printf("%-20s", kategoriBuku[i]);
+        int totalBaris = 0;
+
+        for (int j = 0; j < hari.length; j++) {
+            System.out.printf("%" + LEBAR + "d", dataPeminjaman[i][j]);
+            totalBaris += dataPeminjaman[i][j];
+            totalHari[j] += dataPeminjaman[i][j];
+        }
+
+        System.out.printf("%" + LEBAR + "d%n", totalBaris);
+        totalSemua += totalBaris;
+    }
+
+    System.out.println("-".repeat(20 + LEBAR * (hari.length + 1)));
+    System.out.printf("%-20s", "Total");
+    for (int j = 0; j < hari.length; j++) {
+        System.out.printf("%" + LEBAR + "d", totalHari[j]);
+    }
+    System.out.printf("%" + LEBAR + "d%n", totalSemua);
+}
 
     static void tambahBuku() {
         System.out.println("\n[ Tambah Buku ]");
-
-        System.out.print("Judul buku: ");
-        String judul = scanner.nextLine().trim();
-
+        String judul = bacaTeks("Judul buku: ");
         if (judul.isEmpty()) {
             System.out.println("Judul tidak boleh kosong!");
             return;
@@ -198,25 +208,29 @@ public class Main {
         int rak = bacaAngka("Nomor rak (1-" + JUMLAH_RAK + "): ");
         int posisi = bacaAngka("Posisi (1-" + JUMLAH_POSISI + "): ");
 
+        if (!tambahBukuLangsung(judul, k - 1, lantai, rak, posisi)) return;
+        System.out.println("Buku \"" + judul + "\" berhasil ditambahkan.");
+    }
+        
+    static boolean tambahBukuLangsung(String judul, int idxKategori, int lantai, int rak, int posisi) {
         if (lantai < 1 || lantai > JUMLAH_LANTAI
                 || rak < 1 || rak > JUMLAH_RAK
                 || posisi < 1 || posisi > JUMLAH_POSISI) {
             System.out.println("Lokasi di luar jangkauan rak!");
-            return;
+            return false;
         }
 
-        if (!lokasiBuku[lantai - 1][rak - 1][posisi - 1].equals("Kosong")) {
-            System.out.println("Posisi sudah terisi buku: "
+        if (!lokasiBuku[lantai - 1][rak - 1][posisi - 1].equals(KOSONG)) {
+            System.out.println("Posisi Lt." + lantai + " Rak " + rak + " Pos "
+                    + posisi + " sudah terisi: "
                     + lokasiBuku[lantai - 1][rak - 1][posisi - 1]);
-            return;
+            return false;
         }
 
-        daftarBuku.add(new Buku(
-                judul, kategoriBuku[k - 1], lantai, rak, posisi));
-
+        daftarBuku.add(new Buku(judul, kategoriBuku[idxKategori], lantai, rak, posisi));
         lokasiBuku[lantai - 1][rak - 1][posisi - 1] = judul;
-
-        System.out.println("Buku \"" + judul + "\" berhasil ditambahkan.");
+        catat("TAMBAH BUKU: " + judul);
+        return true;
     }
 
     static void tampilkanDaftarBuku() {
@@ -233,13 +247,12 @@ public class Main {
 
         for (int i = 0; i < daftarBuku.size(); i++) {
             Buku b = daftarBuku.get(i);
-
-            System.out.println(String.format(
-                    "%-4d%-30s%-20sLt.%d Rak %d Pos %d",
-                    i + 1, b.getJudul(), b.getKategori(),
-                    b.getLantai(), b.getRak(), b.getPosisi()));
+            String lokasi = "Lt." + b.getLantai() + " Rak " + b.getRak()
+                    + " Pos " + b.getPosisi();
+            System.out.println(String.format("%-4d%-28s%-20s%-18s%s",
+                    i + 1, b.getJudul(), b.getKategori(), lokasi,
+                    b.isDipinjam() ? "Dipinjam" : "Tersedia"));
         }
-
         System.out.println("Total buku: " + daftarBuku.size());
     }
 
@@ -253,10 +266,15 @@ public class Main {
 
         tampilkanDaftarBuku();
 
-        int nomor = bacaAngka("Nomor buku yang dihapus: ");
-
+        int nomor = bacaAngka("Nomor buku yang dihapus (0 = batal): ");
+        if (nomor == 0) return;
         if (nomor < 1 || nomor > daftarBuku.size()) {
             System.out.println("Nomor buku tidak valid!");
+            return;
+        }
+        
+        if (daftarBuku.get(nomor - 1).isDipinjam()) {
+            System.out.println("Buku sedang dipinjam, tidak bisa dihapus!");
             return;
         }
 
@@ -266,6 +284,8 @@ public class Main {
                 [dihapus.getRak() - 1]
                 [dihapus.getPosisi() - 1] = "Kosong";
 
+        catat("HAPUS BUKU: " + dihapus.getJudul());
+        
         System.out.println("Buku \"" + dihapus.getJudul()
                 + "\" berhasil dihapus dan posisinya dikosongkan.");
     }
@@ -287,137 +307,207 @@ public class Main {
         }
     }
 
-    static void menuStack() {
+    static void menuQueue() {
         boolean kembali = false;
-
         while (!kembali) {
-            System.out.println("\n=== RIWAYAT TRANSAKSI (STACK) ===");
-            System.out.println("1. Tambah transaksi");
-            System.out.println("2. Lihat transaksi terakhir");
-            System.out.println("3. Batalkan transaksi terakhir");
-            System.out.println("4. Tampilkan semua riwayat");
-            System.out.println("5. Kembali ke menu utama");
-
-            int pilihan = bacaAngka("Pilih menu (1-5): ");
-
+            System.out.println("\n=== ANTREAN MAHASISWA (QUEUE) ===");
+            System.out.println("1. Tambah mahasiswa ke antrean");
+            System.out.println("2. Tampilkan antrean");
+            System.out.println("3. Layani mahasiswa berikutnya (pinjam buku)");
+            System.out.println("4. Kembali ke menu utama");
+ 
+            int pilihan = bacaAngka("Pilih menu (1-4): ");
             switch (pilihan) {
-                case 1:
-                    System.out.print("Masukkan transaksi: ");
-                    String transaksi = scanner.nextLine().trim();
-
-                    if (transaksi.isEmpty()) {
-                        System.out.println("Transaksi tidak boleh kosong!");
+                case 1: {
+                    String nama = bacaTeks("Nama mahasiswa: ");
+                    if (nama.isEmpty()) {
+                        System.out.println("Nama tidak boleh kosong!");
                     } else {
-                        riwayatTransaksi.push(transaksi);
-                        System.out.println("Transaksi berhasil disimpan.");
+                        antreanMahasiswa.offer(nama);
+                        catat("ANTRE: " + nama);
+                        System.out.println(nama + " masuk antrean (posisi "
+                                + antreanMahasiswa.size() + ").");
                     }
                     break;
-
+                }
                 case 2:
-                    if (riwayatTransaksi.isEmpty()) {
-                        System.out.println("Belum ada transaksi.");
+                    if (antreanMahasiswa.isEmpty()) {
+                        System.out.println("Antrean masih kosong.");
                     } else {
-                        System.out.println("Transaksi terakhir: "
-                                + riwayatTransaksi.peek());
+                        System.out.println("Daftar antrean:");
+                        int no = 1;
+                        for (String m : antreanMahasiswa)
+                            System.out.println(no++ + ". " + m);
                     }
                     break;
-
                 case 3:
-                    if (riwayatTransaksi.isEmpty()) {
-                        System.out.println(
-                                "Tidak ada transaksi untuk dibatalkan.");
-                    } else {
-                        String batal = riwayatTransaksi.pop();
-                        System.out.println("Transaksi dibatalkan: " + batal);
-                    }
+                    layaniBerikutnya();
                     break;
-
                 case 4:
-                    if (riwayatTransaksi.isEmpty()) {
-                        System.out.println("Belum ada riwayat transaksi.");
-                    } else {
-                        System.out.println(
-                                "Riwayat transaksi (terbaru ke terlama):");
-
-                        for (int i = riwayatTransaksi.size() - 1;
-                                i >= 0; i--) {
-                            System.out.println(
-                                    (riwayatTransaksi.size() - i)
-                                    + ". " + riwayatTransaksi.get(i));
-                        }
-                    }
-                    break;
-
-                case 5:
                     kembali = true;
                     break;
-
                 default:
                     System.out.println("Pilihan tidak valid!");
             }
         }
     }
+ 
+    static void layaniBerikutnya() {
+        if (antreanMahasiswa.isEmpty()) {
+            System.out.println("Tidak ada mahasiswa dalam antrean.");
+            return;
+        }
 
-    static void menuQueue() {
+        int tersedia = 0;
+        for (Buku b : daftarBuku) if (!b.isDipinjam()) tersedia++;
+        if (tersedia == 0) {
+            System.out.println("Tidak ada buku tersedia. Antrean tidak diproses.");
+            return;
+        }
+ 
+        String nama = antreanMahasiswa.peek();
+        System.out.println("\nMelayani: " + nama);
+        tampilkanDaftarBuku();
+ 
+        int nomor = bacaAngka("Nomor buku yang dipinjam (0 = batal): ");
+        if (nomor == 0) return;
+        if (nomor < 1 || nomor > daftarBuku.size()) {
+            System.out.println("Nomor buku tidak valid!");
+            return;
+        }
+        Buku b = daftarBuku.get(nomor - 1);
+        if (b.isDipinjam()) {
+            System.out.println("Buku sedang dipinjam. Pilih buku lain.");
+            return;
+        }
+ 
+        int h = bacaAngka("Hari peminjaman (1=Senin ... 6=Sabtu): ");
+        if (h < 1 || h > hari.length) {
+            System.out.println("Hari tidak valid!");
+            return;
+        }
+ 
+        antreanMahasiswa.poll();
+        b.setDipinjam(true);
+        int idx = indeksKategori(b.getKategori());
+        dataPeminjaman[idx][h - 1]++;
+        catat("PINJAM: " + nama + " meminjam \"" + b.getJudul() + "\" ("
+                + hari[h - 1] + ")");
+        System.out.println(nama + " berhasil meminjam \"" + b.getJudul()
+                + "\". Statistik " + b.getKategori() + " hari " + hari[h - 1]
+                + " menjadi " + dataPeminjaman[idx][h - 1] + ".");
+    }
+ 
+    static void kembalikanBuku() {
+        System.out.println("\n[ Pengembalian Buku ]");
+        boolean ada = false;
+        for (int i = 0; i < daftarBuku.size(); i++) {
+            Buku b = daftarBuku.get(i);
+            if (b.isDipinjam()) {
+                System.out.println((i + 1) + ". " + b.getJudul());
+                ada = true;
+            }
+        }
+        if (!ada) {
+            System.out.println("Tidak ada buku yang sedang dipinjam.");
+            return;
+        }
+        int nomor = bacaAngka("Nomor buku yang dikembalikan (0 = batal): ");
+        if (nomor == 0) return;
+        if (nomor < 1 || nomor > daftarBuku.size()
+                || !daftarBuku.get(nomor - 1).isDipinjam()) {
+            System.out.println("Nomor tidak valid / buku tidak sedang dipinjam!");
+            return;
+        }
+        Buku b = daftarBuku.get(nomor - 1);
+        b.setDipinjam(false);
+        catat("KEMBALI: \"" + b.getJudul() + "\"");
+        System.out.println("Buku \"" + b.getJudul() + "\" sudah dikembalikan.");
+    }
+ 
+    static void menuStack() {
         boolean kembali = false;
-
         while (!kembali) {
-            System.out.println("\n=== ANTREAN MAHASISWA (QUEUE) ===");
-            System.out.println("1. Tambah mahasiswa ke antrean");
-            System.out.println("2. Tampilkan antrean");
-            System.out.println("3. Proses mahasiswa berikutnya");
-            System.out.println("4. Kembali ke menu utama");
-
-            int pilihan = bacaAngka("Pilih menu (1-4): ");
-
+            System.out.println("\n=== RIWAYAT TRANSAKSI (STACK) ===");
+            System.out.println("1. Catat transaksi manual");
+            System.out.println("2. Lihat transaksi terakhir");
+            System.out.println("3. Hapus catatan terakhir");
+            System.out.println("4. Tampilkan semua riwayat");
+            System.out.println("5. Kembali ke menu utama");
+ 
+            int pilihan = bacaAngka("Pilih menu (1-5): ");
             switch (pilihan) {
-                case 1:
-                    System.out.print("Masukkan nama mahasiswa: ");
-                    String nama = scanner.nextLine().trim();
-
-                    if (nama.isEmpty()) {
-                        System.out.println("Nama tidak boleh kosong!");
-                    } else {
-                        antreanMahasiswa.offer(nama);
-                        System.out.println(nama
-                                + " berhasil masuk ke antrean.");
+                case 1: {
+                    String t = bacaTeks("Masukkan transaksi: ");
+                    if (t.isEmpty()) System.out.println("Transaksi tidak boleh kosong!");
+                    else {
+                        catat("MANUAL: " + t);
+                        System.out.println("Transaksi tersimpan.");
                     }
                     break;
-
+                }
                 case 2:
-                    if (antreanMahasiswa.isEmpty()) {
-                        System.out.println("Antrean masih kosong.");
-                    } else {
-                        System.out.println("Daftar antrean mahasiswa:");
-
-                        int nomor = 1;
-
-                        for (String mahasiswa : antreanMahasiswa) {
-                            System.out.println(nomor + ". " + mahasiswa);
-                            nomor++;
-                        }
-                    }
+                    if (riwayatTransaksi.isEmpty())
+                        System.out.println("Belum ada transaksi.");
+                    else
+                        System.out.println("Transaksi terakhir: " + riwayatTransaksi.peek());
                     break;
-
                 case 3:
-                    if (antreanMahasiswa.isEmpty()) {
-                        System.out.println(
-                                "Tidak ada mahasiswa dalam antrean.");
+                    if (riwayatTransaksi.isEmpty())
+                        System.out.println("Tidak ada catatan untuk dihapus.");
+                    else
+                        System.out.println("Catatan dihapus: " + riwayatTransaksi.pop()
+                                + "\n(Catatan: hanya menghapus log, data buku/antrean tidak berubah.)");
+                    break;
+                case 4:
+                    if (riwayatTransaksi.isEmpty()) {
+                        System.out.println("Belum ada riwayat transaksi.");
                     } else {
-                        String mahasiswa = antreanMahasiswa.poll();
-
-                        System.out.println("Mahasiswa yang diproses: "
-                                + mahasiswa);
+                        System.out.println("Riwayat (terbaru ke terlama):");
+                        for (int i = riwayatTransaksi.size() - 1; i >= 0; i--)
+                            System.out.println("  " + riwayatTransaksi.get(i));
                     }
                     break;
-
-                case 4:
+                case 5:
                     kembali = true;
                     break;
-
                 default:
                     System.out.println("Pilihan tidak valid!");
             }
         }
+    }
+ 
+    static void tampilkanRingkasan() {
+        int dipinjam = 0, terisi = 0, totalPinjam = 0;
+        for (Buku b : daftarBuku) if (b.isDipinjam()) dipinjam++;
+        for (String[][] lt : lokasiBuku)
+            for (String[] rk : lt)
+                for (String s : rk) if (!s.equals(KOSONG)) terisi++;
+        for (int[] baris : dataPeminjaman)
+            for (int v : baris) totalPinjam += v;
+ 
+        System.out.println("\n[ Ringkasan Sistem ]");
+        System.out.println("Kategori (Array 1D)          : " + kategoriBuku.length);
+        System.out.println("Total peminjaman (Array 2D)  : " + totalPinjam);
+        System.out.println("Slot terisi (Array 3D)       : " + terisi + " / "
+                + (JUMLAH_LANTAI * JUMLAH_RAK * JUMLAH_POSISI));
+        System.out.println("Jumlah buku (ArrayList)      : " + daftarBuku.size()
+                + " (dipinjam: " + dipinjam + ")");
+        System.out.println("Riwayat transaksi (Stack)    : " + riwayatTransaksi.size());
+        System.out.println("Antrean mahasiswa (Queue)    : " + antreanMahasiswa.size());
+    }
+ 
+    static void contohData() {
+        System.out.println("\n[ Mengisi data contoh ]");
+        tambahBukuLangsung("Java Dasar", 0, 1, 1, 1);
+        tambahBukuLangsung("Kalkulus 1", 1, 1, 2, 1);
+        tambahBukuLangsung("Jaringan TCP/IP", 2, 2, 1, 1);
+        tambahBukuLangsung("Basis Data SQL", 3, 2, 2, 3);
+        for (String n : new String[]{"Andi", "Budi", "Citra"}) {
+            antreanMahasiswa.offer(n);
+            catat("ANTRE: " + n);
+        }
+        System.out.println("4 buku dan 3 mahasiswa antre ditambahkan "
+                + "(posisi yang sudah terisi dilewati).");
     }
 }
