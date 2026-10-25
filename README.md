@@ -19,7 +19,7 @@ Program ini adalah sistem manajemen perpustakaan kampus berbasis Java (console) 
 - **Kelompok:** 20
   
 ## Anggota Kelompok 20
-1. *Adelia Githa Naveezha Hermawan * - 2509116110 - Kelas A
+1. *Adelia Githa Naveezha Hermawan* - 2509116110 - Kelas A
 2. *Kenny Giovanni Gavra* - 2509116003 - Kelas A
 3. *Mikhel Febian* - 2509116056 - Kelas A
 4. *Muhammad Nadhir Sultan Azzaky* - 2509116080 - Kelas A
