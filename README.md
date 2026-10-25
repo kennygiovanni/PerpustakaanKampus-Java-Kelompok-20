@@ -1,8 +1,6 @@
 # Sistem Manajemen Perpustakaan Kampus
 
-## Implementasi: Array 1D/2D/3D, ArrayList, Stack, dan Queue
-
-## 1. Deskripsi Program
+## Deskripsi Program
 
 Program ini adalah sistem manajemen perpustakaan kampus berbasis Java (console) yang menggabungkan *enam struktur data* dalam satu alur kerja dengan menu utama interaktif berbasis Scanner.
 
@@ -14,6 +12,19 @@ Program ini adalah sistem manajemen perpustakaan kampus berbasis Java (console) 
 | 4 | ArrayList | daftarBuku (ArrayList<Buku>) | Menyimpan data buku beserta statusnya |
 | 5 | Stack | riwayatTransaksi | Riwayat transaksi (LIFO) |
 | 6 | Queue | antreanMahasiswa | Antrean mahasiswa (FIFO) |
+
+## Tugas Pemrograman Java
+- **Mata Kuliah:** Pemrograman Berorientasi Objek
+- **Dosen Pengampu:** M. Ibadurrahman Arrasyid Supriyanto M.Kom.
+- **Program Studi:** Sistem Informasi
+- **Angkatan:** 2025
+- **Kelompok:** 20
+  
+## Anggota Kelompok 20
+1. *Adelia Githa Naveezha Hermawan * - 2509116110 - Kelas A
+2. *Kenny Giovanni Gavra* - 2509116003 - Kelas A
+3. *Mikhel Febian* - 2509116056 - Kelas A
+4. *Muhammad Nadhir Sultan Azzaky* - 2509116080 - Kelas A
 
 ### Alur
 
@@ -33,9 +44,7 @@ kemudian dicatat di Array 2D pada hari yang dipilih
 Setiap langkah dicatat ke riwayat (Stack)
 ```
 
-> *Catatan:* Seluruh data disimpan sementara selama program berjalan. Data akan hilang ketika program dihentikan karena belum menggunakan penyimpanan permanen seperti file atau database.
-
-## 2. Pembagian Bagian Program
+## Pembagian Bagian Program
 
 | Bagian | Struktur Data / Fitur |
 |--------|-----------------------|
@@ -44,7 +53,7 @@ Setiap langkah dicatat ke riwayat (Stack)
 | Riwayat Transaksi & Antrean | Stack, Queue |
 | Integrasi & Pengujian | Menu utama, alur peminjaman terpadu, perbaikan error, pengujian |
 
-## 3. Menu Utama
+## Menu Utama
 
 | No | Menu | Struktur Data |
 |:--:|------|---------------|
@@ -63,7 +72,7 @@ Setiap langkah dicatat ke riwayat (Stack)
 
 Menu utama dijalankan dalam perulangan while (jalan) dan dipilih dengan switch. Input pilihan dibaca lewat bacaAngka() sehingga input non-angka ditolak dan diminta ulang.
 
-## 4. Penjelasan Source Code
+## Penjelasan Source Code
 
 ### A. Class Buku
 
@@ -135,8 +144,6 @@ Submenu Stack:
 | 4 | Tampilkan semua riwayat | Dari terbaru ke terlama. |
 | 5 | Kembali | Kembali ke menu utama. |
 
-*Jenis catatan yang dibuat otomatis oleh sistem:*
-
 | Awalan Log | Dibuat saat |
 |------------|-------------|
 | TAMBAH BUKU: | Buku berhasil ditambahkan |
@@ -145,8 +152,6 @@ Submenu Stack:
 | PINJAM: | Mahasiswa berhasil meminjam buku |
 | KEMBALI: | Buku dikembalikan |
 | MANUAL: | Pengguna mencatat sendiri lewat menu Stack |
-
-> *Catatan penting:* Menu "Hapus catatan terakhir" *hanya menghapus log di Stack*. Fitur ini tidak membatalkan perubahan pada buku, statistik, atau antrean. Karena itu namanya diubah dari "Batalkan transaksi" agar tidak menyesatkan. Program menampilkan keterangan ini setiap kali fitur dipakai.
 
 ### G. Antrean Mahasiswa (Queue) dan Proses Peminjaman
 
@@ -192,7 +197,7 @@ kembalikanBuku() menampilkan buku yang berstatus Dipinjam, lalu pengguna memilih
 | tampilkanRingkasan() | Menampilkan jumlah kategori, total peminjaman (Array 2D), slot terisi dari 24 (Array 3D), jumlah buku dan yang dipinjam (ArrayList), jumlah riwayat (Stack), dan jumlah antrean (Queue). |
 | contohData() | Mengisi 4 buku (Java Dasar, Kalkulus 1, Jaringan TCP/IP, Basis Data SQL) dan 3 mahasiswa (Andi, Budi, Citra) untuk mempercepat pengujian. Posisi yang sudah terisi dilewati. |
 
-## 5. Skenario Pengujian
+## Skenario Pengujian
 
 | No | Skenario | Langkah | Hasil yang Diharapkan |
 |:--:|----------|---------|-----------------------|
