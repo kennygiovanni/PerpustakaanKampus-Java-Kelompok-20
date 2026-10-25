@@ -234,26 +234,22 @@ public class Main {
     }
 
     static void tampilkanDaftarBuku() {
-        System.out.println("\n[ Daftar Buku ]");
-
-        if (daftarBuku.isEmpty()) {
-            System.out.println("Belum ada buku.");
-            return;
-        }
-
-        System.out.println(String.format(
-                "%-4s%-30s%-20s%s",
-                "No", "Judul", "Kategori", "Lokasi"));
-
-        for (int i = 0; i < daftarBuku.size(); i++) {
-            Buku b = daftarBuku.get(i);
-            String lokasi = "Lt." + b.getLantai() + " Rak " + b.getRak()
-                    + " Pos " + b.getPosisi();
-            System.out.println(String.format("%-4d%-28s%-20s%-18s%s",
-                    i + 1, b.getJudul(), b.getKategori(), lokasi,
-                    b.isDipinjam() ? "Dipinjam" : "Tersedia"));
-        }
-        System.out.println("Total buku: " + daftarBuku.size());
+    System.out.println("\n[ Daftar Buku ]");
+    if (daftarBuku.isEmpty()) {
+        System.out.println("Belum ada buku.");
+        return;
+    }
+    System.out.println(String.format("%-4s%-28s%-20s%-18s%s",
+            "No", "Judul", "Kategori", "Lokasi", "Status"));
+    for (int i = 0; i < daftarBuku.size(); i++) {
+        Buku b = daftarBuku.get(i);
+        String lokasi = "Lt." + b.getLantai() + " Rak " + b.getRak()
+                + " Pos " + b.getPosisi();
+        String status = b.isDipinjam() ? "Dipinjam" : "Tersedia";
+        System.out.println(String.format("%-4d%-28s%-20s%-18s%s",
+                i + 1, b.getJudul(), b.getKategori(), lokasi, status));
+    }
+    System.out.println("Total buku: " + daftarBuku.size());
     }
 
     static void hapusBuku() {
@@ -499,15 +495,33 @@ public class Main {
  
     static void contohData() {
         System.out.println("\n[ Mengisi data contoh ]");
-        tambahBukuLangsung("Java Dasar", 0, 1, 1, 1);
-        tambahBukuLangsung("Kalkulus 1", 1, 1, 2, 1);
-        tambahBukuLangsung("Jaringan TCP/IP", 2, 2, 1, 1);
-        tambahBukuLangsung("Basis Data SQL", 3, 2, 2, 3);
-        for (String n : new String[]{"Andi", "Budi", "Citra"}) {
-            antreanMahasiswa.offer(n);
-            catat("ANTRE: " + n);
+
+        String[] judul = {"Java Dasar", "Kalkulus 1", "Jaringan TCP/IP", "Basis Data SQL"};
+        int[] kategori = {0, 1, 2, 3};
+        int[][] lokasi = {{1, 1, 1}, {1, 2, 1}, {2, 1, 1}, {2, 2, 3}};
+
+        int bukuBerhasil = 0;
+        for (int i = 0; i < judul.length; i++) {
+            if (tambahBukuLangsung(judul[i], kategori[i],
+                    lokasi[i][0], lokasi[i][1], lokasi[i][2])) {
+                bukuBerhasil++;
+            }
         }
-        System.out.println("4 buku dan 3 mahasiswa antre ditambahkan "
-                + "(posisi yang sudah terisi dilewati).");
+
+        String[] nama = {"Andi", "Budi", "Citra"};
+        int antreBerhasil = 0;
+        for (String n : nama) {
+            if (!antreanMahasiswa.contains(n)) {
+                antreanMahasiswa.offer(n);
+                catat("ANTRE: " + n);
+                antreBerhasil++;
+            }
+        }
+
+        System.out.println(bukuBerhasil + " dari " + judul.length
+                + " buku contoh ditambahkan, " + antreBerhasil
+                + " mahasiswa masuk antrean.");
+        System.out.println("Total sekarang: " + daftarBuku.size() + " buku, "
+                + antreanMahasiswa.size() + " mahasiswa antre.");
     }
 }
